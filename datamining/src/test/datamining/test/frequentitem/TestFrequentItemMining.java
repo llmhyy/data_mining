@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import datamining.frequentitem.Item;
+import datamining.frequentitem.ItemSet;
 import datamining.frequentitem.Transaction;
 import datamining.frequentitem.fpgrowth.FPGrowthAlgorithm;
 
@@ -79,7 +80,9 @@ public class TestFrequentItemMining {
 	@Test
 	public void test() {
 		FPGrowthAlgorithm algo = new FPGrowthAlgorithm();
-		algo.run(transList, 2);
+		ArrayList<ItemSet> sets = algo.run(transList, 2);
+		
+		System.currentTimeMillis();
 	}
 
 }

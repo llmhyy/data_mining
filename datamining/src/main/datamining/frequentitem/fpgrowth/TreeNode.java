@@ -31,6 +31,10 @@ public class TreeNode {
 		return itemString + "(" + count + ")";
 	}
 	
+	public boolean isRoot(){
+		return this.item == null;
+	}
+	
 	/**
 	 * @return the item
 	 */
@@ -92,5 +96,27 @@ public class TreeNode {
 		}
 		
 		return null;
+	}
+
+	public ArrayList<TreePath> findRelatedTreePathes(ItemHeader header) {
+		ArrayList<TreePath> pathList = new ArrayList<>();
+		for(TreeNode node: header.getNodeLinks()){
+			TreePath path = new TreePath();
+			
+			TreeNode n = node;
+			while(!n.isRoot()){
+				if(!header.getItem().equals(n.getItem())){
+					path.addNode(n);					
+				}
+				n = n.getParent();
+			}
+			path.setCount(node.getCount());
+			
+			if(path.getNodes().size() != 0){
+				pathList.add(path);				
+			}
+		}
+		
+		return pathList;
 	}
 }

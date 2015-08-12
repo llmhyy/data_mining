@@ -25,6 +25,10 @@ public class ItemHeaderTable {
 	public void setTable(ArrayList<ItemHeader> table) {
 		this.table = table;
 	}
+	
+	public int size(){
+		return this.table.size();
+	}
 
 	public ItemHeader find(Item item) {
 		for(ItemHeader header: this.table){
