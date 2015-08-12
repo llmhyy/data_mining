@@ -98,7 +98,7 @@ public class TreeNode {
 		return null;
 	}
 
-	public ArrayList<TreePath> findRelatedTreePathes(ItemHeader header) {
+	public ArrayList<TreePath> findPrefixTreePathes(ItemHeader header) {
 		ArrayList<TreePath> pathList = new ArrayList<>();
 		for(TreeNode node: header.getNodeLinks()){
 			TreePath path = new TreePath();

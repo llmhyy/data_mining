@@ -28,7 +28,7 @@ public class FPGrowthAlgorithm {
 			ItemHeader header = itemHeaderTable.getTable().get(itemHeaderTable.size()-1-i);
 			Item item = header.getItem();
 			
-			ArrayList<TreePath> pathes = fpTree.findRelatedTreePathes(header);
+			ArrayList<TreePath> pathes = fpTree.findPrefixTreePathes(header);
 			if(pathes.size() == 0){
 				/**
 				 * do nothing
