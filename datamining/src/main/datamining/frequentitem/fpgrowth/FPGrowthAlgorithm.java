@@ -31,14 +31,8 @@ public class FPGrowthAlgorithm {
 			ArrayList<TreePath> pathes = fpTree.findPrefixTreePathes(header);
 			if(pathes.size() == 0){
 				/**
-				 * do nothing
+				 * the prefix is empty, thus do nothing
 				 */
-//				if(header.getCount() >= supportThreshold){
-//					ItemSet set = new ItemSet();
-//					set.addItem(item);
-//					set.setSupport(header.getCount());
-//					sets.add(set);
-//				}
 			}
 			else if(pathes.size() == 1){
 				TreePath path = pathes.get(0);
