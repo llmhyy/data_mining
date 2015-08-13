@@ -33,6 +33,11 @@ public class Char implements IItem{
 	}
 
 	@Override
+	public boolean equalItem(IItem item) {
+		return equals(item);
+	}
+
+	@Override
 	public boolean equals(Object item) {
 		if(item instanceof Char){
 			Char thatChar = (Char)item;
@@ -41,5 +46,4 @@ public class Char implements IItem{
 		
 		return false;
 	}
-
 }

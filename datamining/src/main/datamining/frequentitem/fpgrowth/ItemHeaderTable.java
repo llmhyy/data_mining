@@ -32,7 +32,7 @@ public class ItemHeaderTable {
 
 	public ItemHeader find(IItem item) {
 		for(ItemHeader header: this.table){
-			if(header.getItem().equals(item)){
+			if(header.getItem().equalItem(item)){
 				return header;
 			}
 		}

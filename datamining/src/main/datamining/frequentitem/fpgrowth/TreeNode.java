@@ -90,7 +90,7 @@ public class TreeNode {
 
 	public TreeNode findInDirectChildren(IItem item) {
 		for(TreeNode child: this.children){
-			if(child.getItem().equals(item)){
+			if(child.getItem().equalItem(item)){
 				return child;
 			}
 		}
@@ -105,7 +105,7 @@ public class TreeNode {
 			
 			TreeNode n = node;
 			while(!n.isRoot()){
-				if(!header.getItem().equals(n.getItem())){
+				if(!header.getItem().equalItem(n.getItem())){
 					path.addNode(n);					
 				}
 				n = n.getParent();
