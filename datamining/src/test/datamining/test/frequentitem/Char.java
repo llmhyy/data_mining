@@ -33,7 +33,7 @@ public class Char implements Item{
 	}
 
 	@Override
-	public boolean equals(Item item) {
+	public boolean equals(Object item) {
 		if(item instanceof Char){
 			Char thatChar = (Char)item;
 			return thatChar.getCharacter() == this.character;

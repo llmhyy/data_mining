@@ -2,6 +2,7 @@ package datamining.test.frequentitem;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -81,6 +82,9 @@ public class TestFrequentItemMining {
 	public void test() {
 		FPGrowthAlgorithm algo = new FPGrowthAlgorithm();
 		ArrayList<ItemSet> sets = algo.run(transList, 2);
+		
+		Assert.assertTrue(sets.toString().equals("[[B, D], [A, B, E], [A, E], [B, E], "
+				+ "[A, B, C], [B, C], [A, C], [B, A], [B], [A], [C], [E], [D]]"));
 		
 		System.currentTimeMillis();
 	}

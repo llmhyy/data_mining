@@ -7,6 +7,7 @@ import java.util.Iterator;
 import datamining.frequentitem.Item;
 import datamining.frequentitem.ItemSet;
 import datamining.frequentitem.Transaction;
+import datamining.util.Utils;
 
 public class FPGrowthAlgorithm {
 	
@@ -37,16 +38,23 @@ public class FPGrowthAlgorithm {
 			else if(pathes.size() == 1){
 				TreePath path = pathes.get(0);
 				if(path.getCount() >= supportThreshold){
-					ItemSet set = new ItemSet();
-					set.addItem(item);
-					for(TreeNode node: path.getNodes()){
-						set.addItem(node.getItem());
-					}
-					set.setSupport(path.getCount());
-					sets.add(set);
 					
-					//TODO
-					//sets.addAll(combinatorialSets);
+					System.currentTimeMillis();
+//					ItemSet set = new ItemSet();
+//					set.addItem(item);
+//					for(TreeNode node: path.getNodes()){
+//						set.addItem(node.getItem());
+//					}
+//					set.setSupport(path.getCount());
+//					sets.add(set);
+					
+					ArrayList<Item> itemList = convertToItemList(path.getNodes());
+					itemList.add(item);
+					ArrayList<ArrayList<? extends Object>> subSets = Utils.calculateSubSets(itemList, itemList.size());
+					ArrayList<ItemSet> combinatorialSets = convertToItemSet(subSets, path.getCount());
+					sets.addAll(combinatorialSets);
+					
+					System.currentTimeMillis();
 				}
 			}
 			else{
@@ -68,6 +76,31 @@ public class FPGrowthAlgorithm {
 		return sets;
 	}
 	
+	private ArrayList<Item> convertToItemList(ArrayList<TreeNode> nodeList){
+		ArrayList<Item> itemList = new ArrayList<>();
+		for(TreeNode node: nodeList){
+			itemList.add(node.getItem());
+		}
+		return itemList;
+	}
+	
+	private ArrayList<ItemSet> convertToItemSet(
+			ArrayList<ArrayList<? extends Object>> subSets, int support) {
+		ArrayList<ItemSet> itemSetList = new ArrayList<>();
+		for(ArrayList<? extends Object> subset: subSets){
+			if(subset.size() > 1){
+				ItemSet itemSet = new ItemSet();
+				for(Object obj: subset){
+					itemSet.addItem((Item)obj);
+					itemSet.setSupport(support);
+				}
+				itemSetList.add(itemSet);					
+			}
+		}
+		
+		return itemSetList;
+	}
+
 	private ArrayList<ItemSet> enumerateSingleElementItemSet(ItemHeaderTable table){
 		ArrayList<ItemSet> list = new ArrayList<>();
 		for(ItemHeader header: table.getTable()){
