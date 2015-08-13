@@ -3,7 +3,7 @@ package datamining.frequentitem;
 import java.util.ArrayList;
 
 public class ItemSet {
-	private ArrayList<Item> itemList = new ArrayList<>();
+	private ArrayList<IItem> itemList = new ArrayList<>();
 	private int support;
 	
 	public String toString(){
@@ -13,17 +13,17 @@ public class ItemSet {
 	/**
 	 * @return the itemList
 	 */
-	public ArrayList<Item> getItemList() {
+	public ArrayList<IItem> getItemList() {
 		return itemList;
 	}
 	/**
 	 * @param itemList the itemList to set
 	 */
-	public void setItemList(ArrayList<Item> itemList) {
+	public void setItemList(ArrayList<IItem> itemList) {
 		this.itemList = itemList;
 	}
 	
-	public void addItem(Item item){
+	public void addItem(IItem item){
 		this.itemList.add(item);
 	}
 	

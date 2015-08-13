@@ -1,8 +1,8 @@
 package datamining.test.frequentitem;
 
-import datamining.frequentitem.Item;
+import datamining.frequentitem.IItem;
 
-public class Char implements Item{
+public class Char implements IItem{
 
 	private char character;
 	

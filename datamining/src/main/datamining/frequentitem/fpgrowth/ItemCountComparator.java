@@ -2,9 +2,9 @@ package datamining.frequentitem.fpgrowth;
 
 import java.util.Comparator;
 
-import datamining.frequentitem.Item;
+import datamining.frequentitem.IItem;
 
-public class ItemCountComparator implements Comparator<Item> {
+public class ItemCountComparator implements Comparator<IItem> {
 
 	private ItemHeaderTable table;
 	
@@ -13,7 +13,7 @@ public class ItemCountComparator implements Comparator<Item> {
 	}
 	
 	@Override
-	public int compare(Item arg0, Item arg1) {
+	public int compare(IItem arg0, IItem arg1) {
 		return table.find(arg1).getCount() - table.find(arg0).getCount();
 	}
 

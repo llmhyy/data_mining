@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-import datamining.frequentitem.Item;
+import datamining.frequentitem.IItem;
 import datamining.frequentitem.ItemSet;
 import datamining.frequentitem.Transaction;
 import datamining.util.Utils;
@@ -27,7 +27,7 @@ public class FPGrowthAlgorithm {
 		for(int i=0; i<itemHeaderTable.size(); i++){
 			//decreasing order
 			ItemHeader header = itemHeaderTable.getTable().get(itemHeaderTable.size()-1-i);
-			Item item = header.getItem();
+			IItem item = header.getItem();
 			
 			ArrayList<TreePath> pathes = fpTree.findPrefixTreePathes(header);
 			if(pathes.size() == 0){
@@ -48,7 +48,7 @@ public class FPGrowthAlgorithm {
 //					set.setSupport(path.getCount());
 //					sets.add(set);
 					
-					ArrayList<Item> itemList = convertToItemList(path.getNodes());
+					ArrayList<IItem> itemList = convertToItemList(path.getNodes());
 					itemList.add(item);
 					ArrayList<ArrayList<? extends Object>> subSets = Utils.calculateSubSets(itemList, itemList.size());
 					ArrayList<ItemSet> combinatorialSets = convertToItemSet(subSets, path.getCount());
@@ -76,8 +76,8 @@ public class FPGrowthAlgorithm {
 		return sets;
 	}
 	
-	private ArrayList<Item> convertToItemList(ArrayList<TreeNode> nodeList){
-		ArrayList<Item> itemList = new ArrayList<>();
+	private ArrayList<IItem> convertToItemList(ArrayList<TreeNode> nodeList){
+		ArrayList<IItem> itemList = new ArrayList<>();
 		for(TreeNode node: nodeList){
 			itemList.add(node.getItem());
 		}
@@ -91,7 +91,7 @@ public class FPGrowthAlgorithm {
 			if(subset.size() > 1){
 				ItemSet itemSet = new ItemSet();
 				for(Object obj: subset){
-					itemSet.addItem((Item)obj);
+					itemSet.addItem((IItem)obj);
 					itemSet.setSupport(support);
 				}
 				itemSetList.add(itemSet);					
@@ -116,7 +116,7 @@ public class FPGrowthAlgorithm {
 	private ArrayList<Transaction> deriveConditionalTranscation(ArrayList<TreePath> pathes) {
 		ArrayList<Transaction> transactions = new ArrayList<>();
 		for(TreePath path: pathes){
-			ArrayList<Item> itemList = new ArrayList<>();
+			ArrayList<IItem> itemList = new ArrayList<>();
 			for(TreeNode node: path.getNodes()){
 				itemList.add(node.getItem());
 			}
@@ -134,12 +134,12 @@ public class FPGrowthAlgorithm {
 			ArrayList<Transaction> transcations, int supportThreshold) {
 		TreeNode root = new TreeNode(null);
 		for(Transaction transcation: transcations){
-			ArrayList<Item> itemList = transcation.getItemList(); 
+			ArrayList<IItem> itemList = transcation.getItemList(); 
 			cleanNonfrequentItem(itemList, itemHeaderTable, supportThreshold);
 			Collections.sort(itemList, new ItemCountComparator(itemHeaderTable));
 			
 			TreeNode parentNode = root;
-			for(Item item: itemList){
+			for(IItem item: itemList){
 				TreeNode node = parentNode.findInDirectChildren(item);
 				if(node == null){
 					node = new TreeNode(item, 1);
@@ -163,11 +163,11 @@ public class FPGrowthAlgorithm {
 	
 	
 
-	private void cleanNonfrequentItem(ArrayList<Item> itemList, ItemHeaderTable itemHeaderTable,
+	private void cleanNonfrequentItem(ArrayList<IItem> itemList, ItemHeaderTable itemHeaderTable,
 			int supportThreshold) {
-		Iterator<Item> iterator = itemList.iterator();
+		Iterator<IItem> iterator = itemList.iterator();
 		while(iterator.hasNext()){
-			Item item = iterator.next();
+			IItem item = iterator.next();
 			if(itemHeaderTable.find(item) == null){
 				iterator.remove();
 			}
@@ -178,7 +178,7 @@ public class FPGrowthAlgorithm {
 			ArrayList<Transaction> transcations, int supportThreshold) {
 		ItemHeaderTable table = new ItemHeaderTable();
 		for(Transaction transcation: transcations){
-			for(Item item: transcation.getItemList()){
+			for(IItem item: transcation.getItemList()){
 				ItemHeader header = table.find(item);
 				if(null == header){
 					header = new ItemHeader(item, 1);

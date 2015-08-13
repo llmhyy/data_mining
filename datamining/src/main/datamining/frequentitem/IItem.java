@@ -1,6 +1,6 @@
 package datamining.frequentitem;
 
-public interface Item{
+public interface IItem{
 	public boolean equals(Object item);
 	
 }

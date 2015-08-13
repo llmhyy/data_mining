@@ -3,7 +3,7 @@ package datamining.frequentitem.fpgrowth;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import datamining.frequentitem.Item;
+import datamining.frequentitem.IItem;
 
 public class ItemHeaderTable {
 	private ArrayList<ItemHeader> table = new ArrayList<>();
@@ -30,7 +30,7 @@ public class ItemHeaderTable {
 		return this.table.size();
 	}
 
-	public ItemHeader find(Item item) {
+	public ItemHeader find(IItem item) {
 		for(ItemHeader header: this.table){
 			if(header.getItem().equals(item)){
 				return header;

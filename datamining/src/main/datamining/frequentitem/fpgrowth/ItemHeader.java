@@ -2,14 +2,14 @@ package datamining.frequentitem.fpgrowth;
 
 import java.util.ArrayList;
 
-import datamining.frequentitem.Item;
+import datamining.frequentitem.IItem;
 
 /**
  * @author linyun
  *
  */
 public class ItemHeader {
-	private Item item;
+	private IItem item;
 	private int count;
 	private ArrayList<TreeNode> nodeLinks = new ArrayList<>();
 	
@@ -17,7 +17,7 @@ public class ItemHeader {
 	 * @param item
 	 * @param count
 	 */
-	public ItemHeader(Item item, int count) {
+	public ItemHeader(IItem item, int count) {
 		super();
 		this.item = item;
 		this.count = count;
@@ -30,13 +30,13 @@ public class ItemHeader {
 	/**
 	 * @return the item
 	 */
-	public Item getItem() {
+	public IItem getItem() {
 		return item;
 	}
 	/**
 	 * @param item the item to set
 	 */
-	public void setItem(Item item) {
+	public void setItem(IItem item) {
 		this.item = item;
 	}
 	/**

@@ -2,14 +2,14 @@ package datamining.frequentitem.fpgrowth;
 
 import java.util.ArrayList;
 
-import datamining.frequentitem.Item;
+import datamining.frequentitem.IItem;
 
 /**
  * @author linyun
  *
  */
 public class TreeNode {
-	private Item item;
+	private IItem item;
 	private int count;
 	
 	private TreeNode parent;
@@ -17,11 +17,11 @@ public class TreeNode {
 	
 	public TreeNode(){}
 	
-	public TreeNode(Item item){
+	public TreeNode(IItem item){
 		this.item = item;
 	}
 	
-	public TreeNode(Item item, int count){
+	public TreeNode(IItem item, int count){
 		this.item = item;
 		this.count = count;
 	}
@@ -38,13 +38,13 @@ public class TreeNode {
 	/**
 	 * @return the item
 	 */
-	public Item getItem() {
+	public IItem getItem() {
 		return item;
 	}
 	/**
 	 * @param item the item to set
 	 */
-	public void setItem(Item item) {
+	public void setItem(IItem item) {
 		this.item = item;
 	}
 	/**
@@ -88,7 +88,7 @@ public class TreeNode {
 		this.children.add(node);
 	}
 
-	public TreeNode findInDirectChildren(Item item) {
+	public TreeNode findInDirectChildren(IItem item) {
 		for(TreeNode child: this.children){
 			if(child.getItem().equals(item)){
 				return child;
