@@ -31,5 +31,13 @@ public class Transaction {
 		this.itemList = itemList;
 	}
 	
+	public boolean contains(ItemSet itemSet){
+		for(IItem item: itemSet.getItemList()){
+			if(!this.itemList.contains(item)){
+				return false;
+			}
+		}
+		return true;
+	}
 	
 }

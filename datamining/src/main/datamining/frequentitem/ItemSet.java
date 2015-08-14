@@ -10,6 +10,20 @@ public class ItemSet {
 		return itemList.toString();
 	}
 	
+	public boolean contains(ItemSet set){
+		for(IItem thatItem: set.getItemList()){
+			if(!this.itemList.contains(thatItem)){
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	public int size(){
+		return this.itemList.size();
+	}
+	
 	/**
 	 * @return the itemList
 	 */

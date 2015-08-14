@@ -10,4 +10,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: datamining.cluster,
  datamining.cluster.hierarchy,
- datamining.frequentitem
+ datamining.frequentitem,
+ datamining.frequentitem.fpgrowth

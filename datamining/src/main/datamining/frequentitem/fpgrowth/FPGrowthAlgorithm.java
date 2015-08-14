@@ -10,15 +10,57 @@ import datamining.frequentitem.Transaction;
 import datamining.util.Utils;
 
 public class FPGrowthAlgorithm {
+	public ArrayList<ItemSet> runLargest(ArrayList<Transaction> transcations, int supportThreshold){
+		ArrayList<ItemSet> sets = runAll(transcations, supportThreshold);
+		
+		Iterator<ItemSet> iterator = sets.iterator();
+		while(iterator.hasNext()){
+			ItemSet subItemSet = iterator.next();
+			ItemSet superSet = findSuperItemSet(subItemSet, sets);
+			
+			if(superSet != null){
+				iterator.remove();
+			}
+		}
+		
+		return sets;
+	}
+	
+	public ArrayList<ItemSet> runLargestBySupport(ArrayList<Transaction> transcations, int supportThreshold){
+		ArrayList<ItemSet> sets = runAll(transcations, supportThreshold);
+		
+		Iterator<ItemSet> iterator = sets.iterator();
+		while(iterator.hasNext()){
+			ItemSet subItemSet = iterator.next();
+			ItemSet superSet = findSuperItemSet(subItemSet, sets);
+			
+			if(superSet != null && superSet.getSupport() >= subItemSet.getSupport()){
+				iterator.remove();
+			}
+		}
+		
+		return sets;
+	}
 	
 	
-	public ArrayList<ItemSet> run(ArrayList<Transaction> transcations, int supportThreshold){
+	
+	private ItemSet findSuperItemSet(ItemSet subItemSet, ArrayList<ItemSet> sets){
+		for(ItemSet itemSet: sets){
+			if(itemSet.contains(subItemSet) && itemSet.size()>subItemSet.size()){
+				return itemSet;
+			}
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<ItemSet> runAll(ArrayList<Transaction> transcations, int supportThreshold){
 		ItemHeaderTable itemHeaderTable = constructItemHeaderTable(transcations, supportThreshold);
 		TreeNode fpTree = constructFPTree(itemHeaderTable, transcations, supportThreshold);
 		
-		ArrayList<ItemSet> set = generateItemSet(itemHeaderTable, fpTree, supportThreshold);
+		ArrayList<ItemSet> sets = generateItemSet(itemHeaderTable, fpTree, supportThreshold);
 		
-		return set;
+		return sets;
 	}
 
 	private ArrayList<ItemSet> generateItemSet(ItemHeaderTable itemHeaderTable,
@@ -60,7 +102,7 @@ public class FPGrowthAlgorithm {
 			else{
 				//recursive
 				ArrayList<Transaction> subTransactions = deriveConditionalTranscation(pathes);
-				ArrayList<ItemSet> frequentItemSet = run(subTransactions, supportThreshold);
+				ArrayList<ItemSet> frequentItemSet = runAll(subTransactions, supportThreshold);
 				for(ItemSet set0: frequentItemSet){
 					set0.addItem(item);
 				}

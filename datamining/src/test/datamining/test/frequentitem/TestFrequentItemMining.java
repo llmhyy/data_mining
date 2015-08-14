@@ -79,12 +79,34 @@ public class TestFrequentItemMining {
 	}
 
 	@Test
-	public void test() {
+	public void testRunAll() {
 		FPGrowthAlgorithm algo = new FPGrowthAlgorithm();
-		ArrayList<ItemSet> sets = algo.run(transList, 2);
+		ArrayList<ItemSet> sets = algo.runAll(transList, 2);
 		
 		Assert.assertTrue(sets.toString().equals("[[B, D], [A, B, E], [A, E], [B, E], "
 				+ "[A, B, C], [B, C], [A, C], [B, A], [B], [A], [C], [E], [D]]"));
+		
+		System.currentTimeMillis();
+	}
+
+	
+	@Test
+	public void testRunLargest() {
+		FPGrowthAlgorithm algo = new FPGrowthAlgorithm();
+		ArrayList<ItemSet> sets = algo.runLargest(transList, 2);
+		
+		Assert.assertTrue(sets.toString().equals("[[B, D], [A, B, E], [A, B, C]]"));
+		
+		System.currentTimeMillis();
+	}
+	
+	@Test
+	public void testRunLargestBySupport() {
+		FPGrowthAlgorithm algo = new FPGrowthAlgorithm();
+		ArrayList<ItemSet> sets = algo.runLargestBySupport(transList, 2);
+		
+		Assert.assertTrue(sets.toString().equals("[[B, D], [A, B, E], [A, B, C], [B, C], "
+				+ "[A, C], [B, A], [B], [A], [C]]"));
 		
 		System.currentTimeMillis();
 	}
