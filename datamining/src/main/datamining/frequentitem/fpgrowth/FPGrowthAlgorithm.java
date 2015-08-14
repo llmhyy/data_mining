@@ -1,11 +1,13 @@
 package datamining.frequentitem.fpgrowth;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
 import datamining.frequentitem.IItem;
 import datamining.frequentitem.ItemSet;
+import datamining.frequentitem.ItemSetComparator;
 import datamining.frequentitem.Transaction;
 import datamining.util.Utils;
 
@@ -54,11 +56,19 @@ public class FPGrowthAlgorithm {
 		return null;
 	}
 	
+	/**
+	 * The reported frequent item set will be sorted in descending order.
+	 * @param transcations
+	 * @param supportThreshold
+	 * @return
+	 */
 	public ArrayList<ItemSet> runAll(ArrayList<Transaction> transcations, int supportThreshold){
 		ItemHeaderTable itemHeaderTable = constructItemHeaderTable(transcations, supportThreshold);
 		TreeNode fpTree = constructFPTree(itemHeaderTable, transcations, supportThreshold);
 		
 		ArrayList<ItemSet> sets = generateItemSet(itemHeaderTable, fpTree, supportThreshold);
+		
+		Collections.sort(sets, new ItemSetComparator());
 		
 		return sets;
 	}
